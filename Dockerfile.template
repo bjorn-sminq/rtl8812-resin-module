@@ -1,0 +1,11 @@
+FROM resin/raspberrypi3-debian
+
+RUN apt-get update && apt-get install -y curl wget build-essential
+
+WORKDIR /usr/src/app
+
+COPY . ./
+
+#Install external Wi-Fi adapter driver
+RUN ./build.sh raspberrypi3 '2.0.0-beta.7' rtl8812au_rtl8821au
+CMD ./load_module.sh
